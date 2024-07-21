@@ -68,6 +68,26 @@ app.post('/update-pets', async(req, res) => {
         console.log(error);
     }
 });
+
+app.get('/', async (req, res) => {
+    const pets = 'https://api.hubspot.com/crm/v3/objects/pets?properties=pet_name,pet_type,food_preferences';
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    }
+    const props = {
+        properties: ['pet_name', 'pet_type', 'food_preferences']
+    }
+    try {
+        const reply = await axios.get(pets, {headers, props});
+        const pet = reply.data.results;
+        console.log('Pet Data:- ', JSON.stringify(pets, null, 2));
+        res.render('homepage', {pets: pet});
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
 
