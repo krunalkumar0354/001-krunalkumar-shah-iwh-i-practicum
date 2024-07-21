@@ -47,7 +47,27 @@ app.get('/update-pets', (req, res) => {
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
 // * Code for Route 3 goes here
-
+app.post('/update-pets', async(req, res) => {
+    const pets = 'https://api.hubspot.com/crm/v3/objects/pets';
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    }
+    const data = {
+        properties: {
+            pet_name: req.body.pet_name,
+            pet_type: req.body.pet_type,
+            food_preferences: req.body.food_preference
+        }
+    }
+    try {
+        const reply = await axios.post(pets, data, {headers});
+        console.log('Updata Status :- ', JSON.stringify(reply.data, null, 2));
+        res.redirect('/get-pets');
+    } catch (error) {
+        console.log(error);
+    }
+});
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
 
