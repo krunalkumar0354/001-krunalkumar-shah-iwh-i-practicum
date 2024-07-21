@@ -24,10 +24,9 @@ app.get('/get-pets', async (req, res) => {
     try {
         const reply = await axios.get(pets, {headers, props});
         const pet = reply.data.results;
-        console.log('Pet Data:- ', JSON.stringify(pets, null, 2));
         res.render('home', {pets: pet});
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 })
 
@@ -40,7 +39,7 @@ app.get('/update-pets', (req, res) => {
     try {
         res.render('updates', { pageTitle: 'Update Custom Object Form | Integrating With HubSpot I Practicum'});
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 })
 
@@ -62,10 +61,9 @@ app.post('/update-pets', async(req, res) => {
     }
     try {
         const reply = await axios.post(pets, data, {headers});
-        console.log('Updata Status :- ', JSON.stringify(reply.data, null, 2));
         res.redirect('/get-pets');
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 });
 
@@ -81,10 +79,9 @@ app.get('/', async (req, res) => {
     try {
         const reply = await axios.get(pets, {headers, props});
         const pet = reply.data.results;
-        console.log('Pet Data:- ', JSON.stringify(pets, null, 2));
         res.render('homepage', {pets: pet});
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 })
 
