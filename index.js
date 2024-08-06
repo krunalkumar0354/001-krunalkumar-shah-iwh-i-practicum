@@ -85,6 +85,22 @@ app.get('/', async (req, res) => {
     }
 })
 
+app.get('/contacts', async (req, res) => {
+    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    }
+    try {
+        const resp = await axios.get(contacts, { headers });
+        const data = resp.data.results;
+        console.log(data);
+        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });      
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
 
